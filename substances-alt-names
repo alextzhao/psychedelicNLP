@@ -1,0 +1,16 @@
+mushrooms: mushrooms, mushrooms.*$, mushroom, mushhrooms, mushoom, p semilanceata, p. azurescens, p. cubensis, p. cyanescens, p. cyanescens ), p. mexicana, p. tampanensis, mus[h]*[r]*oom[s]*.*$
+cannabis: cannabis, marijuana, cannibis, weed, thc, cbd
+lsd: lsd, lysergic acid
+mdma: mdma, ecstacy, ecstasy, ectasy, ecsta[sc]y.*$, mdma.*$, molly,
+methamphetamine: methamphetamine, methamphetamines, methamphetimine
+morning glory: morning glory, mor[n]*ing glor[y]*[s]*.*$
+mdpv: mdpv, mdpv[\w(][a-z]+[\w)]$
+unknown: unknown, unknown.*$
+syrian rue: syrian rue, p. harmala, p. harmala.*$
+p. lanata: p. lanata
+ayahuasca: ayahusca, p. viridis, p. viridis.*$, p.viridis
+passion flower: passion flower, passion[\s]*flower.*
+pcp: pcp, pcp.*$
+dmt: dmt, dmt.*$
+5-meo-dmt: 5-meo-dmt, 5-meo-dmt.*$, 5-meo dmt
+salvia: salvia, salvia divinorum, salvia.*$, salvinorin.*$, salva

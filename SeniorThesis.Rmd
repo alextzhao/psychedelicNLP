@@ -1,0 +1,404 @@
+---
+title: "SeniorThesis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+if(!require('pacman')) {
+  install.packages('pacman', repos = "http://cran.us.r-project.org")
+}
+
+# tm, SnowballC, wordcloud, RColorBrewer for wordcloud
+pacman::p_load(dplyr, leaps, car, tidyverse, GGally, reshape2, data.table, ggcorrplot, bestglm, glmnet, mapproj, pROC, data.tale, tm, SnowballC, wordcloud, RColorBrewer, reshape2) 
+
+
+```
+
+## R Markdown
+
+```{r}
+# Read in the file
+tripReports <- fread("trips.csv")
+tripReports.df <- as.data.frame(tripReports)
+glimpse(tripReports)
+
+# Examine the substances
+tripReports %>% select(substance) %>% write.table(file = "substances-all", append=FALSE, col.names = FALSE, row.names = FALSE, sep = "\n")
+
+##########################################################################################################
+# View the distribution of the different substances
+# num.LSD.Containing <- tripReports %>% filter(grepl("LSD|acid", substance)) %>% summarize(n()) #1131
+# num.LSD.Only <- tripReports %>% filter(substance == "LSD" | substance == "lsd" | substance == "acid" | substance == "Acid") %>% summarize(n()) #556
+# 
+# num.Mushrooms.Containing <- tripReports %>% filter(grepl("Mushrooms|mushroom|Mushroom|mushrooms|psilocybin|psilocin", substance)) %>%  summarize(n())
+# num.Mushrooms.Only <- tripReports %>% filter(substance == "Mushrooms"  | substance == "Mushroom" | substance == "mushroom" | substance == "mushrooms") %>%  summarize(n())
+# 
+# num.Cannabis.Containing <- tripReports %>% filter(grepl("Cannabis|cannabis|weed|Weed", substance)) %>%  summarize(n())
+# num.Cannabis.Only <- tripReports %>% filter(substance == "Cannabis" | substance == "cannabis" | substance == "Weed" | substance == "weed") %>%  summarize(n())
+# 
+# num.MDMA.Containing <- tripReports %>% filter(grepl("MDMA|mdma|ecstasy|Ecstasy|Molly|molly", substance)) %>% summarize(n())
+# num.MDMA.Only <- tripReports %>% filter(substance %in% c("MDMA", "mdma", "ecstasy", "Ecstasy", "Molly", "molly")) %>%  summarize(n())
+# 
+# num.Mescaline.Containing <- tripReports %>% filter(grepl("mescaline|Mescaline|peyote|Peyote|Pedro|pedro", substance)) %>%  summarize(n())
+# num.Mescaline.Only <- tripReports %>% filter(substance == "Mescaline" | substance == "mescaline" | substance == "Peyote" | substance == "peyote") %>%  summarize(n())
+# 
+# num.Ayahuasca.Containing <- tripReports %>% filter(grepl("huasca|caapi|viridis", substance)) %>%  summarize(n())
+# num.Ayahuasca.DMT_Analogs.Containing <- tripReports %>% filter(grepl("huasca|caapi|DMT|viridis|brew", substance)) %>%  summarize(n())
+# num.Ayahuasca.Only <- tripReports %>% filter(substance == "Ayahuasca" | substance == "ayahuasca" | substance == "Banisteriopsis caapi") %>%  summarize(n())
+# 
+
+
+# Manipulate the dataframe to have 1 hot encoding for substances
+tripReports$substance <- tolower(tripReports$substance)
+tripReports <- as.data.frame(tripReports)
+substances.of.interest <- c("substance.mushrooms", "substance.lsd", "substance.mescaline", "substance.cannabis", "substance.mdma", "substance.ayahuasca", "substance.nitrous_oxide", "substance.salvia", "substance.methamphetamine", "substance.dmt", "substance.5_meo_dmt", "substance.alcohol", "substance.ketamine", "substance.ibogaine", "substance.pcp", "substance.kava", "substance.kratom", "substance.morning_glory", "substance.syrian_rue", "substance.unknown", "substance.UNK")
+
+for (sub in substances.of.interest) {
+  tripReports[sub] = 0
+}
+
+### Adding one hot encodings to the substances
+tripReports$substance.mushrooms[grepl("mushroom|mushhrooms|mushooms|psilocin|psilocybin|psilocybe", tripReports$substance)] <- 1
+tripReports$substance.lsd[grepl("lysergic acid|lsd", tripReports$substance)] <- 1
+tripReports$substance.mescaline[grepl("mescaline|peyote", tripReports$substance)] <- 1
+tripReports$substance.cannabis[grepl("cannabis|canabis|cannabbis|cannabinoid|cannabus|cannibis|cannibus| thc ", tripReports$substance)] <- 1
+tripReports$substance.mdma[grepl("mdma|ecstacy|ecstasy|ectasy|molly", tripReports$substance)] <- 1
+tripReports$substance.ayahuasca[grepl("ayahuasca|ayahausca|ayahusca|p. viridis|p.viridis|b.caapi|b. caapi|cappi|viridis", tripReports$substance)] <- 1
+tripReports$substance.nitrous_oxide[grepl("nitric|nitrites|nitrogen|nitrous|whippets", tripReports$substance)] <- 1
+tripReports$substance.salvia[grepl("salia|saliva|salivia|sally|salva|salvia|salvinorin", tripReports$substance)] <- 1
+tripReports$substance.methamphetamine[grepl("met|meth|methampetamine|methamphetamine|speed", tripReports$substance)] <- 1
+# dmt
+tripReports$substance.dmt[grepl("nn-dmt", tripReports$substance)] <- 1
+tripReports$substance.dmt[tripReports$substance == "dmt"] <- 1 # cannot just grep dmt otherwise this will include 5-meo-dmt
+#5-meo-dmt
+tripReports$substance.5_meo_dmt[grepl("5 meo-dmt|5-meo dmt|5-meo-dmt|5meo-dmt", tripReports$substance)] <- 1
+tripReports$substance.alcohol[grepl("alchohol|alcohol", tripReports$substance)] <- 1
+tripReports$substance.ketamine[grepl("ketamin|ketamine", tripReports$substance)] <- 1
+tripReports$substance.ibogaine[grepl("iboga|ibogaine", tripReports$substance)] <- 1
+tripReports$substance.pcp[grepl("pcp", tripReports$substance)] <- 1
+tripReports$substance.kava[grepl("kava", tripReports$substance)] <- 1
+tripReports$substance.kratom[grepl("kratom", tripReports$substance)] <- 1
+tripReports$substance.morning_glory[grepl("glory|glories", tripReports$substance)] <- 1
+tripReports$substance.syrian_rue[grepl("syrian rue|rue", tripReports$substance)] <- 1
+tripReports$substance.unknown[grepl("unknown|unidentified|unkown", tripReports$substance)] <- 1
+
+glimpse(tripReports)
+
+# Number of each substance: NOTE that this is not exclusive, that is, a report may have more than one substance!!
+tripSubstances <- tripReports %>% select(-report, -title, -substance)
+tripReportsCount <- data.frame(substance = names(tripSubstances), count = colSums(tripSubstances))
+tripReportsCountSorted <- tripReportsCount %>% arrange(desc(count))
+
+
+################################################
+## Reports with only one unique substance ######
+################################################
+
+
+tripReports$substance.unique_label <- "NA"
+glimpse(tripReports)
+uniqueSubstanceRows <- tripReports %>% select(-report, -title, -substance, -substance.unique_label) %>% rowSums() == 1
+
+for (row in 1:nrow(tripReports)) {
+  # this row contains a unique substance
+  if (uniqueSubstanceRows[row]) {
+    for (substance in substances.of.interest) {
+      if (tripReports[row, substance] == 1) {
+        tripReports[row, ]$substance.unique_label<- substance
+      } 
+    }
+  }
+}
+
+glimpse(tripReports)
+
+# TEMP: Saving the table for future use
+# IGNORE THIS
+save(tripReports, file="tripReportsEncoded.Rda")
+write.table(tripReports, file="tripReportsEncodedTable", sep = ";;", row.names = TRUE, col.names = TRUE )
+write.csv(tripReports, file="tripReportsEncodedCVS", sep = ",", row.names = TRUE, col.names = TRUE)
+##########################################################################################################
+
+#### Create a data frame that combines the count for reports containing a substance and reports that are uniquely a single substance
+tripReportsUniqueSubstanceCountSorted <- tripReports %>% group_by(substance.unique_label) %>% summarise(count = n()) %>% arrange(desc(count))
+glimpse(tripReportsCountSorted)
+colnames(tripReportsUniqueSubstanceCountSorted) = c("substance", "count")
+tripReportsUniqueSubstanceCountSorted %>% glimpse()
+
+tripReportsCount_merged <- merge(tripReportsCountSorted, tripReportsUniqueSubstanceCountSorted, by="substance")
+colnames(tripReportsCount_merged) = c("substance", "n_includes_substance", "n_single_substance")
+
+## TODO INCLUDE ##
+tripReportsCount_merged %>% arrange(desc(n_includes_substance))
+
+## THE DATA FRAME THAT ENCODES HOW MANY TRIP REPORTS CONTAINS A SUBSTANCE AND HOW MANY REPORTS ARE UNIQUELY SUCH A SUBSTANCE
+tripReportsCount_merged.long <- reshape2::melt(tripReportsCount_merged)
+## TODO INCLUDE ##
+tripReportsCount_merged.long %>% ggplot( aes(x = reorder(substance, -value), y = value, fill=variable)) + geom_bar(stat="identity", position = "dodge") + theme(axis.text.x = element_text(angle = 67.5, hjust = 1)) + ggtitle("Count of Substances Present in Trip Reports") + xlab("substance") + ylab("count") + labs(fill = "Number of Reports")
+```
+
+```{r}
+# DMT, Ayahusca, and Related Substances
+# 	Ayahuasca - (Brews traditionally containing B. caapi & P. viridis, see also Huasca Brew, Banisteriopsis caapi, Psychotria viridis, Huasca Combo); 	Banisteriopsis caapi - (caapi)
+
+# TODO: Separate Ayahuasca from smoked DMT + 5-MeO-DMT
+
+# Ayahusca only
+tripReports %>% filter(substance == "Ayahuasca" | substance == "ayahuasca" | substance == "Banisteriopsis caapi") %>%  summarize(n())
+
+# Ayahusca and other substances
+tripReports %>% filter(grepl("huasca|caapi|viridis", substance)) %>%  summarize(n())
+
+# Ayahusca + DMT analogues
+tripReports %>% filter(grepl("huasca|caapi|DMT|viridis|brew", substance)) %>%  summarize(n())
+
+# Write to file the substance names containing Ayahusca + DMT analogs
+tripReports %>% filter(grepl("huasca|caapi|DMT|viridis|brew", substance)) %>% select(substance) %>% write.table(file = "substances-contains-huasca|caapi|DMT|viridis|brew", append=FALSE, col.names = FALSE, row.names= FALSE, sep = "\n")
+
+
+
+# tripReports %>% filter(grepl("jwh", substance)) %>% summarize(n())
+```
+
+
+```{r}
+# LSD, acidand related substances
+# LSD - (Acid; Doses; Trips, see also LSA)
+
+# Number of reports with Acid
+tripReports %>% filter(grepl("LSD|acid", substance)) %>% summarize(n()) #1131
+tripReports %>% filter(substance == "LSD" | substance == "lsd" | substance == "acid" | substance == "Acid") %>% summarize(n()) #556
+
+tripReports %>% filter(grepl("substances-contains-LSD", substance)) %>% select(substance) %>% write.table(file = "LSD|acid|lsd", append=FALSE, col.names = FALSE, row.names= FALSE, sep = "\n")
+
+
+```
+
+
+```{r}
+# Mushrooms and related substances
+
+# Mushrooms - (Magic Mushrooms; Psilocybin-containing Fungi, see also Mushrooms - P. peliculosa, Mushrooms - P. mexicana, Mushrooms - P. cubensis, Mushrooms - P. cyanescens, Mushrooms - P. semilanceata, Mushrooms - G. spectabilis, Mushrooms - P. subaeruginosa, Mushrooms - P. weilii, Mushrooms - P. tampanensis, Mushrooms - Panaeolus cyanescens, Mushrooms - P. azurescens, Mushrooms - P. atlantis, Amanitas)
+
+tripReports %>% filter(grepl("Mushrooms|mushroom|Mushroom|mushrooms|psilocybin|psilocin", substance)) %>%  summarize(n())
+tripReports %>% filter(substance == "Mushrooms"  | substance == "Mushroom" | substance == "mushroom" | substance == "mushrooms") %>%  summarize(n())
+
+tripReports %>% filter(substance == "Mushrooms"  | substance == "Mushroom" | substance == "mushroom" | substance == "mushrooms") %>% select(substance) %>% write.table(file = "substances-Mushrooms-Only", append=FALSE, col.names = FALSE, row.names= FALSE, sep = "\n")
+
+tripReports %>% filter(grepl("Mushrooms|mushroom|Mushroom|mushrooms|psilocybin|psilocin|psilocybe|psilocin", substance)) %>% select(substance) %>% write.table(file = "substances-contains-Mushrooms|mushroom|Mushroom|mushrooms|psilocybin|psilocin|psilocybe|psilocin", append=FALSE, col.names = FALSE, row.names= FALSE, sep = "\n")
+
+
+# extract the reports
+tripReports %>% filter(substance == "Mushrooms"  | substance == "Mushroom" | substance == "mushroom" | substance == "mushrooms") %>% select(report) %>% write.table(file = "reports-Mushrooms-only", append=FALSE, col.names = FALSE, row.names= FALSE, sep = "\n")
+
+
+
+```
+
+```{r}
+## Wordcloud for mushrooms
+# From: http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know
+text <- readLines(file.choose())
+docs <- Corpus(VectorSource(text))
+inspect(docs)
+
+
+toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
+docs <- tm_map(docs, toSpace, "/")
+docs <- tm_map(docs, toSpace, "@")
+docs <- tm_map(docs, toSpace, "\\|")
+
+# Stemming + cleaning the text
+# Convert the text to lower case
+docs <- tm_map(docs, content_transformer(tolower))
+# Remove numbers
+docs <- tm_map(docs, removeNumbers)
+# Remove english common stopwords
+docs <- tm_map(docs, removeWords, stopwords("english"))
+# Remove your own stop word
+# specify your stopwords as a character vector
+docs <- tm_map(docs, removeWords, c("blabla1", "blabla2")) 
+# Remove punctuations
+docs <- tm_map(docs, removePunctuation)
+# Eliminate extra white spaces
+docs <- tm_map(docs, stripWhitespace)
+# Text stemming
+# docs <- tm_map(docs, stemDocument)
+
+
+# Document matrix is a table containing the frequency of the words. Column names are words and row names are documents. The function TermDocumentMatrix() from text mining package can be used as follow :
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v)
+head(d, 10)
+
+# Generate the word cloud
+set.seed(1234)
+wordcloud(words = d$word, freq = d$freq, min.freq = 1,
+          max.words=200, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2")) 
+
+###################
+### Extensions: ###
+###################
+
+# Frequency limits
+findFreqTerms(dtm, lowfreq = 2000)
+
+# associations of words to specific terms
+findAssocs(dtm, terms = "oneness", corlimit = 0.1)
+# frequency table of words
+head(d, 10)
+
+barplot(d[1:10,]$freq, las = 2, names.arg = d[1:10,]$word,
+        col ="lightblue", main ="Most frequent words",
+        ylab = "Word frequencies")
+
+
+```
+
+```{r}
+# Mescaline and related substances
+
+# TODO: Include Cacti here?
+search.string="mescaline|Mescaline|peyote|Peyote|Pedro|pedro"
+
+tripReports %>% filter(grepl("mescaline|Mescaline|peyote|Peyote|Pedro|pedro", substance)) %>%  summarize(n())
+
+# tripReports %>% filter(substance %in% c("mescaline, Mescaline, peyote, Peyote, Pedro, pedro")) %>%  summarize(n())
+
+tripReports %>% filter(substance == "Mescaline" | substance == "mescaline" | substance == "Peyote" | substance == "peyote") %>%  summarize(n())
+
+tripReports %>% filter(grepl("mescaline|Mescaline|peyote|Peyote|Pedro|pedro", substance)) %>% select(substance) %>% write.table(file = "substances-contains-mescaline|Mescaline|peyote|Peyote|Pedro|pedro", append=FALSE, col.names = FALSE, row.names= FALSE, sep = "\n")
+```
+
+
+```{r}
+# MDMA and related substances
+# TODO: MDMA - (Ecstasy; Molly; Adam; E; X)	[2163
+
+search.string="MDMA|mdma|ecstasy|Ecstasy|Molly|molly"
+
+search.string.array <- c(strsplit("MDMA|mdma|ecstasy|Ecstasy|Molly|molly", "\\|"))
+
+tripReports %>% filter(substance %in% c("MDMA", "mdma", "ecstasy", "Ecstasy", "Molly", "molly")) %>%  summarize(n())
+
+
+tripReports %>% filter(grepl("MDMA|mdma|ecstasy|Ecstasy|Molly|molly", substance)) %>% summarize(n())
+
+
+
+
+tripReports %>% filter(grepl("MDMA|mdma|ecstasy|Ecstasy|Molly|molly", substance)) %>% select(substance) %>% write.table(file = "substances-contains-MDMA|mdma|ecstasy|Ecstasy|Molly|molly", append=FALSE, col.names = FALSE, row.names= FALSE, sep = "\n")
+
+
+```
+
+```{r}
+# Cannabis and related substances
+# Cannabinoids
+# TODO: (Cannabis sativa; Cannabis indica; Marijuana, see also Cannabinoid Receptor Agonists, Cannabinoids, Novel Cannabinoid Receptor Agonists, Products - Other Cannabis-Like Smoking Blends, Products - Spice-Like Smoking Blends)
+
+search.string="Cannabis|cannabis|weed|Weed"
+
+tripReports %>% filter(grepl("Cannabis|cannabis|weed|Weed", substance)) %>%  summarize(n())
+
+tripReports %>% filter(substance == "Cannabis" | substance == "cannabis" | substance == "Weed" | substance == "weed") %>%  summarize(n())
+
+tripReports %>% filter(grepl("Cannabis|cannabis|weed|Weed", substance)) %>% select(substance) %>% write.table(file = "substances-contains-Cannabis|cannabis|weed", append=FALSE, col.names = FALSE, row.names= FALSE, sep = "\n")
+
+
+```
+
+```{r}
+# Ketamine - (Ketalar; Ketaset; Special K; K, see also Methoxetamine, Ketamine)	~ 706
+```
+
+
+```{r}
+# Salvia divinorum - (Salvia, see also Salvinorin B, Salvia splendens, Salvinorin A)
+```
+
+```{r}
+# Cocaine - 773
+
+
+
+```
+
+```{r}
+# Diphenhydramine - (Benadryl)
+
+```
+
+```{r}
+# GHB - (Gamma hydroxybutyrate, see also 1,4-Butanediol, GBL)
+
+```
+
+```{r}
+# Heroin - (Smack; Horse)
+
+```
+
+
+
+```{r}
+# Ibogaine - (see also Tabernanthe iboga)
+# Iboga Alkaloid Group
+
+```
+
+```{r}
+# Methamphetamine - (Meth; Crystal Meth; Ice; Crank; Desoxyn, see also Amphetamines, Lisdexamfetamine)
+```
+
+
+```{r}
+# Morning Glory - (Ipomoea violacea; tlilitzin; badoh negro (seeds), see also LSA, H.B. Woodrose, Turbina corymbosa); ~ [572]
+
+
+```
+
+```{r}
+# Morphine - (see also Heroin, Opiates, Opium)
+```
+
+```{r}
+# NBOMe Series - (see also NBOH Series)
+```
+
+
+```{r}
+# Nitrous Oxide - (Nitrous; N2O; Whippets, see also Inhalants) ~ 441
+```
+
+```{r}
+# Opiates / Opioids / Opium
+```
+
+```{r}
+# PCP - (angel dust; phencyclidine) ~120
+```
+
+```{r}
+
+```
+
+```{r}
+# Stimulants - (Psychostimulant, see also Amphetamines) ~ 3369
+```
+
+```{r}
+# Syrian Rue; Syrian Rue - (Peganum harmala)	[473]
+
+```
+
+
+```{r}
+#	Yoga / Bodywork	[53]
+```
+
