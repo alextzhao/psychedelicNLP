@@ -96,7 +96,6 @@ tripReportsCountSorted <- tripReportsCount %>% arrange(desc(count))
 ## Reports with only one unique substance ######
 ################################################
 
-
 tripReports$substance.unique_label <- "NA"
 glimpse(tripReports)
 uniqueSubstanceRows <- tripReports %>% select(-report, -title, -substance, -substance.unique_label) %>% rowSums() == 1
@@ -138,6 +137,9 @@ tripReportsCount_merged.long <- reshape2::melt(tripReportsCount_merged)
 ## TODO INCLUDE ##
 tripReportsCount_merged.long %>% ggplot( aes(x = reorder(substance, -value), y = value, fill=variable)) + geom_bar(stat="identity", position = "dodge") + theme(axis.text.x = element_text(angle = 67.5, hjust = 1)) + ggtitle("Count of Substances Present in Trip Reports") + xlab("substance") + ylab("count") + labs(fill = "Number of Reports")
 ```
+
+### CODE NOT INCLUDED IN JUPYTER NOTEBOOK:
+
 
 ```{r}
 # DMT, Ayahusca, and Related Substances
