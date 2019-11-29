@@ -1,10 +1,9 @@
 # Dimensions of Non Ordinary Experiences: Natural Language Processing of Trascendent Experience Reports
 
-`Senior Thesis`
-`University of Pennsylvania, Fall 2019`
+`Senior Thesis`, `University of Pennsylvania`, `Fall 2019`
 
 **Alex Tianheng Zhao**
-`@alextzhao`
+`@alextzhao`  
 alextzhao.io  
 alexzhao@seas.upenn.edu  
 School of Engineering and Applied Science, University of Pennsylvania  
