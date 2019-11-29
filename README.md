@@ -4,7 +4,7 @@
 
 **Alex Tianheng Zhao**
 `@alextzhao`  
-[alextzhao.io](alextzhao.io)  
+[alextzhao.io](https://alextzhao.io)  
 alexzhao@seas.upenn.edu  
 School of Engineering and Applied Science, University of Pennsylvania  
 The Wharton School, University of Pennsylvania  
