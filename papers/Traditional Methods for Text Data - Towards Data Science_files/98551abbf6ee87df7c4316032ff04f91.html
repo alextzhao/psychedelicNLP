@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://towardsdatascience.com/media/98551abbf6ee87df7c4316032ff04f91 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>feature_engg_text_8.py – Medium</title><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style><link href="chrome-extension://nffaoalbilbmmfgbnbgppjihopabppdk/inject.css" type="text/css" rel="stylesheet"></head><body class="vsc-initialized"><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./6691902dc91bc3d1b15e6ab64ff03702.js" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-123720f37c57ce9a8f29de081c38ed61.css"><div id="gist86128279" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-feature_engg_text_8-py" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-python ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+      <tbody><tr>
+        <td id="file-feature_engg_text_8-py-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-feature_engg_text_8-py-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">from</span> scipy.cluster.hierarchy <span class="pl-k">import</span> dendrogram, linkage</td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_8-py-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-feature_engg_text_8-py-LC2" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_8-py-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-feature_engg_text_8-py-LC3" class="blob-code blob-code-inner js-file-line">Z <span class="pl-k">=</span> linkage(similarity_matrix, <span class="pl-s"><span class="pl-pds">'</span>ward<span class="pl-pds">'</span></span>)</td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_8-py-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-feature_engg_text_8-py-LC4" class="blob-code blob-code-inner js-file-line">pd.DataFrame(Z, <span class="pl-v">columns</span><span class="pl-k">=</span>[<span class="pl-s"><span class="pl-pds">'</span>Document\Cluster 1<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Document\Cluster 2<span class="pl-pds">'</span></span>, </td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_8-py-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-feature_engg_text_8-py-LC5" class="blob-code blob-code-inner js-file-line">                         <span class="pl-s"><span class="pl-pds">'</span>Distance<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Cluster Size<span class="pl-pds">'</span></span>], <span class="pl-v">dtype</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>object<span class="pl-pds">'</span></span>)</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/dipanjanS/6691902dc91bc3d1b15e6ab64ff03702/raw/552b1bd09694e71dd6ff5c0f380795e50a639b06/feature_engg_text_8.py" style="float:right">view raw</a>
+        <a href="https://gist.github.com/dipanjanS/6691902dc91bc3d1b15e6ab64ff03702#file-feature_engg_text_8-py">feature_engg_text_8.py</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200; if (document) {document.domain = document.domain;}function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height);var elements = document.getElementsByClassName("gist-data"); for (var i = 0; i < elements.length; i++) {elements[i].style.overflow = "visible"}resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {try {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);} catch(error) {console.log('maybeResize error: ', error)}}maybeResize();</script></body></html>

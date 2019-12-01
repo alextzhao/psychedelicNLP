@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://towardsdatascience.com/media/415b5ca94e6f79be5e8fdb192802e5d2 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>feature_engg_text_1.py – Medium</title><meta name="description" content="GitHub is where people build software. More than 27 million people use GitHub to discover, fork, and contribute to over 80 million projects."><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style></head><body class="vsc-initialized"><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./b4662ccccdcce0dd6dbac3a39c180635.js" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-123720f37c57ce9a8f29de081c38ed61.css"><div id="gist86097396" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-feature_engg_text_1-py" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-python ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+      <tbody><tr>
+        <td id="file-feature_engg_text_1-py-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-feature_engg_text_1-py-LC1" class="blob-code blob-code-inner js-file-line">corpus <span class="pl-k">=</span> [<span class="pl-s"><span class="pl-pds">'</span>The sky is blue and beautiful.<span class="pl-pds">'</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_1-py-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-feature_engg_text_1-py-LC2" class="blob-code blob-code-inner js-file-line">          <span class="pl-s"><span class="pl-pds">'</span>Love this blue and beautiful sky!<span class="pl-pds">'</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_1-py-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-feature_engg_text_1-py-LC3" class="blob-code blob-code-inner js-file-line">          <span class="pl-s"><span class="pl-pds">'</span>The quick brown fox jumps over the lazy dog.<span class="pl-pds">'</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_1-py-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-feature_engg_text_1-py-LC4" class="blob-code blob-code-inner js-file-line">          <span class="pl-s"><span class="pl-pds">"</span>A king's breakfast has sausages, ham, bacon, eggs, toast and beans<span class="pl-pds">"</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_1-py-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-feature_engg_text_1-py-LC5" class="blob-code blob-code-inner js-file-line">          <span class="pl-s"><span class="pl-pds">'</span>I love green eggs, ham, sausages and bacon!<span class="pl-pds">'</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_1-py-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-feature_engg_text_1-py-LC6" class="blob-code blob-code-inner js-file-line">          <span class="pl-s"><span class="pl-pds">'</span>The brown fox is quick and the blue dog is lazy!<span class="pl-pds">'</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_1-py-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-feature_engg_text_1-py-LC7" class="blob-code blob-code-inner js-file-line">          <span class="pl-s"><span class="pl-pds">'</span>The sky is very blue and the sky is very beautiful today<span class="pl-pds">'</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_1-py-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-feature_engg_text_1-py-LC8" class="blob-code blob-code-inner js-file-line">          <span class="pl-s"><span class="pl-pds">'</span>The dog is lazy but the brown fox is quick!<span class="pl-pds">'</span></span>    </td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_1-py-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-feature_engg_text_1-py-LC9" class="blob-code blob-code-inner js-file-line">]</td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_1-py-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-feature_engg_text_1-py-LC10" class="blob-code blob-code-inner js-file-line">labels <span class="pl-k">=</span> [<span class="pl-s"><span class="pl-pds">'</span>weather<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>weather<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>animals<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>food<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>food<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>animals<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>weather<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>animals<span class="pl-pds">'</span></span>]</td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_1-py-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-feature_engg_text_1-py-LC11" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_1-py-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-feature_engg_text_1-py-LC12" class="blob-code blob-code-inner js-file-line">corpus <span class="pl-k">=</span> np.array(corpus)</td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_1-py-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-feature_engg_text_1-py-LC13" class="blob-code blob-code-inner js-file-line">corpus_df <span class="pl-k">=</span> pd.DataFrame({<span class="pl-s"><span class="pl-pds">'</span>Document<span class="pl-pds">'</span></span>: corpus, </td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_1-py-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-feature_engg_text_1-py-LC14" class="blob-code blob-code-inner js-file-line">                          <span class="pl-s"><span class="pl-pds">'</span>Category<span class="pl-pds">'</span></span>: labels})</td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_1-py-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-feature_engg_text_1-py-LC15" class="blob-code blob-code-inner js-file-line">corpus_df <span class="pl-k">=</span> corpus_df[[<span class="pl-s"><span class="pl-pds">'</span>Document<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Category<span class="pl-pds">'</span></span>]]</td>
+      </tr>
+      <tr>
+        <td id="file-feature_engg_text_1-py-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-feature_engg_text_1-py-LC16" class="blob-code blob-code-inner js-file-line">corpus_df</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/dipanjanS/b4662ccccdcce0dd6dbac3a39c180635/raw/36896c7d466d80bd89a16acbb3b99e0e1a43bb8e/feature_engg_text_1.py" style="float:right">view raw</a>
+        <a href="https://gist.github.com/dipanjanS/b4662ccccdcce0dd6dbac3a39c180635#file-feature_engg_text_1-py">feature_engg_text_1.py</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200; if (document) {document.domain = document.domain;}function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height);var elements = document.getElementsByClassName("gist-data"); for (var i = 0; i < elements.length; i++) {elements[i].style.overflow = "visible"}resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {try {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);} catch(error) {console.log('maybeResize error: ', error)}}maybeResize();</script></body></html>
