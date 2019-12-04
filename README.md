@@ -32,6 +32,7 @@
     - [Thesis Master Document](https://docs.google.com/document/d/1dk1xXyfHqfdn5Tld-KZu7toiNYQeJHQv7BUlG7uSqP4/edit#)
     - [Thesis Scratch Paper](https://docs.google.com/document/d/1BP5Z2J9tJvRJB5J-hthQIGrdSnD0Bcvctd7kHqbUUKw/edit?usp=sharing)
     - [Thesis Codebase](https://github.com/alextzhao/psychedelicNLP)
+    - [Thesis Interactive Jupyter Notebook](https://nbviewer.jupyter.org/github/alextzhao/psychedelicNLP/blob/master/AlexZhao_SeniorThesis_Notebook.ipynb)
 - Helpful Tutorials and Tips
      - Excellent Series from `Towards Data Science`:
          - [A Practitioner's Guide to Natural Language Processing (Part I): Processing & Understanding Text](https://towardsdatascience.com/a-practitioners-guide-to-natural-language-processing-part-i-processing-understanding-text-9f4abfd13e72)
