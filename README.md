@@ -5,25 +5,25 @@
 `University of Pennsylvania, Fall 2019`
 
 #### Author: **Alex Tianheng Zhao**
-> `alexzhao@seas.upenn.edu`
-> Department of Computer and Information, School of Engineering and Applied Science, University of Pennsylvania
-> Department of Statistics, The Wharton School, University of Pennsylvania
+> `alexzhao@seas.upenn.edu`</br>
+> Department of Computer and Information, School of Engineering and Applied Science, University of Pennsylvania</br>
+> Department of Statistics, The Wharton School, University of Pennsylvania</br>
 > 🌐[`personal website`](https://alextzhao.io), [`github`](https://github.com/alextzhao), [`linkedin`](https://www.linkedin.com/in/alextzhao), [`ORCID`](https://orcid.org/0000-0001-6745-5980)
 
 
-#### **Max Mintz, PhD**
-> `mintz@cis.upenn.edu`
-> Coordinator, Senior Thesis Program, Department of Computer and Information Science
-> University of Pennsylvania
+#### **Max Mintz, PhD**</br>
+> `mintz@cis.upenn.edu`</br>
+> Coordinator, Senior Thesis Program, Department of Computer and Information Science</br>
+> University of Pennsylvania</br>
 
 
 ## **Thesis Advisors**
-> **Chris Callison-Burch, PhD**
-> `ccb@upenn.edu`
-> Department of Computer and Information Science (SEAS), University of Pennsylvania
+> **Chris Callison-Burch, PhD**</br>
+> `ccb@upenn.edu`  </br>
+> Department of Computer and Information Science (SEAS), University of Pennsylvania</br>
 
-> **Lyle Ungar, PhD**
-> `ungar@cis.upenn.edu`
+> **Lyle Ungar, PhD**</br>
+> `ungar@cis.upenn.edu` </br>
 > Department of Computer and Information Science; additional appoints in the Departments of Bioengineering (SEAS); Genomics and Computational Biology (Penn Medicine); Operations, Informations, and Decisions (Wharton); Psychology (SAS), University of Pennsylvania
 
 
