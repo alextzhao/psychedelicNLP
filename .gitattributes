@@ -2,3 +2,4 @@ trips.csv filter=lfs diff=lfs merge=lfs -text
 tripReportsEncoded.Rda filter=lfs diff=lfs merge=lfs -text
 tripReportsEncoded.csv filter=lfs diff=lfs merge=lfs -text
 tripReportsEncodedTable filter=lfs diff=lfs merge=lfs -text
+thesis-designs.sketch filter=lfs diff=lfs merge=lfs -text
