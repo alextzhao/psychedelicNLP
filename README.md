@@ -9,7 +9,7 @@
 > Department of Computer and Information, School of Engineering and Applied Science, University of Pennsylvania</br>
 > Department of Statistics, The Wharton School, University of Pennsylvania</br>
 > 🌐[`personal website`](https://alextzhao.io), [`github`](https://github.com/alextzhao), [`linkedin`](https://www.linkedin.com/in/alextzhao), [`ORCID`](https://orcid.org/0000-0001-6745-5980)
-ren
+
 
 #### **Max Mintz, PhD**</br>
 > `mintz@cis.upenn.edu`</br>
