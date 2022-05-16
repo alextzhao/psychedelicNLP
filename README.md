@@ -1,4 +1,4 @@
-# Dimensions of Non Ordinary Experiences: Natural Language Processing of Trascendent Experience Reports
+# Dimensions of Non Ordinary Experiences: Natural Language Processing of Transcendent Experience Reports
 
 `EAS 499: Senior Thesis`
 
